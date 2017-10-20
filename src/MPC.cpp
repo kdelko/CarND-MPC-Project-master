@@ -10,8 +10,8 @@
 using CppAD::AD;
 
 // TODO: Set the timestep length and duration
-size_t N = 10;
-double dt = 0.2;
+size_t N = 12;
+double dt = 0.1;
 
 
 // This value assumes the model presented in the classroom is used.
@@ -72,7 +72,7 @@ public:
 
 			fg[0] += CppAD::pow(vars[cte_start + i], 2);
 			fg[0] += CppAD::pow(vars[epsi_start+ i], 2);
-			fg[0] += CppAD::pow(vars[v_start+ i]-40, 2);
+			fg[0] += CppAD::pow(vars[v_start+ i]-30, 2);
 		}
 
 		// minimize actuators
@@ -99,6 +99,7 @@ public:
 
 		// model from the class
 		for (int i = 0; i < N - 1; i++) {
+			
 			fg[2+i + x_start]   = vars[1+i + x_start]   - (vars[i + x_start]   + vars[i + v_start] * CppAD::cos(vars[i + psi_start]) * dt);
 			fg[2+i + y_start]   = vars[1+i + y_start]   - (vars[i + y_start]   + vars[i + v_start] * CppAD::sin(vars[i + psi_start]) * dt);
 			fg[2+i + psi_start] = vars[1+i + psi_start] - (vars[i + psi_start] + vars[i + v_start] * vars[i + delta_start] / 2.67    * dt);
@@ -110,6 +111,12 @@ public:
 
 			fg[2+i + cte_start]  = vars[1+i + cte_start]  - ( (f0 - vars[i + y_start]     ) + vars[i + v_start] * CppAD::sin(vars[i + epsi_start]) * dt);
 			fg[2+i + epsi_start] = vars[1+i + epsi_start] - ( (vars[i + psi_start] - side0) + vars[i + v_start] * vars[i + delta_start] / 2.67     * dt);
+			
+
+
+
+
+
 		}
 		//std::cout << "here 7\n";
 	}

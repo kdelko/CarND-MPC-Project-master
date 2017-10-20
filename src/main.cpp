@@ -97,7 +97,7 @@ int main() {
 					double py = j[1]["y"];
 					double psi = j[1]["psi"];
 					double v = j[1]["speed"];
-					
+					//v *= 0.44704;
 					/*
 					* TODO: Calculate steering angle and throttle using MPC.
 					*
@@ -146,13 +146,15 @@ int main() {
 					// velocity + throttle value * latency
 					// cross tr err + velocity * sin(epsi) * latency
 					// epsi + velocity * steering value / Lf * latency
-					s << v*0.1, 
-						 0.0, 
-						 v*steer_value/mpc.Lf*0.1,
-						 v+throttle_value*0.1,
-						 cte + v * sin(epsi)*0.1,
-						 epsi + v * steer_value / mpc.Lf * 0.1;
 					
+					s << 0.0,//v*0.1, 
+						0.0,
+						0.0,//v*steer_value/mpc.Lf*0.1,
+						v+throttle_value*0.1,
+						cte+ v * sin(epsi)*0.1,
+						epsi+v * steer_value / mpc.Lf * 0.1;
+					
+					//s << 0.0,0.0,0.0, v + throttle_value*0.1, cte + v * sin(epsi)*0.1, epsi + v * steer_value / mpc.Lf * 0.1;
 					//std::cout << "here 4\n";
 
 					vector<double> res = mpc.Solve(s, coeffs);
@@ -192,8 +194,6 @@ int main() {
 						next_x_vals.push_back(rel_x[i]);
 						next_y_vals.push_back(rel_y[i]);
 					}
-
-
 
 
 					msgJson["next_x"] = next_x_vals;
