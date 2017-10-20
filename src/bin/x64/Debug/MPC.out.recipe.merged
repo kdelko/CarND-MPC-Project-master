@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <LocalLibPath>D:\Self-DrivingCar\CarND-MPC-Project-master\src\bin\x64\Debug\MPC.out</LocalLibPath>
+  <ObjPaths>D:\Self-DrivingCar\CarND-MPC-Project-master\src\obj\x64\Debug\</ObjPaths>
+  <Configuration>Debug</Configuration>
+  <Platform>x64</Platform>
+</Project>
