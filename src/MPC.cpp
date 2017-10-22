@@ -84,11 +84,10 @@ public:
 		// minimize gap
 		for (int i = 0; i < N - 2; i++) {
 			fg[0] += 1000.0 * CppAD::pow( vars[delta_start+i+1] - vars[delta_start+i], 2);
-			fg[0] += 1000.0 * CppAD::pow(vars[i+7*N] - vars[i+7*N], 2);
+			fg[0] += 1000.0 * CppAD::pow(vars[a_start+i+1] - vars[a_start+i], 2);
 			//fg[0] += CppAD::pow( vars[delta_start+i+1] - vars[delta_start+i], 2);
 			//fg[0] += CppAD::pow(vars[i+7*N] - vars[i+7*N], 2);
 		}
-
 
 		fg[1 + x_start]   = vars[x_start];
 		fg[1 + y_start]   = vars[y_start];

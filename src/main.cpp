@@ -147,11 +147,34 @@ int main() {
 					// epsi + velocity * steering value / Lf * latency
 					
 					s << 0.0,//v*0.1, 
-						0.0,
-						0.0,//v*steer_value/mpc.Lf*0.1,
-						v+throttle_value*0.1,
-						cte+ v * sin(epsi)*0.1,
-						epsi+v * steer_value / mpc.Lf * 0.1;
+						 0.0,
+						 0.0,//v*steer_value/mpc.Lf*0.1,
+						 v + throttle_value*0.1,
+						 cte + v * sin(epsi)*0.1,
+						 epsi + v * steer_value / mpc.Lf * 0.1;
+
+
+					/*
+					review
+						psi = delta; // in coordinate now, so use steering angle to predict x and y
+						px = px + v*cos(psi)*latency; 
+						py = py + v*sin(psi)*latency;
+						cte= cte + v*sin(epsi)*latency;
+						epsi = epsi + v*delta*latency/Lf;
+						psi = psi + v*delta*latency/Lf;
+						v = v + a*latency;
+					
+					v *= 0.44704;
+					steer_value *= -1;
+					double latency = 0.1; // in coordinate now, so use steering angle to predict x and y
+					s << px + v*cos(steer_value)*latency,
+						 py + v*sin(steer_value)*latency,
+						 steer_value + v*steer_value*latency / mpc.Lf,
+						 v + throttle_value*0.1,
+						 cte + v*sin(epsi)*latency,
+						 epsi + v*steer_value*latency / mpc.Lf;
+					*/
+					
 					
 					//s << 0.0,0.0,0.0, v + throttle_value*0.1, cte + v * sin(epsi)*0.1, epsi + v * steer_value / mpc.Lf * 0.1;
 					//std::cout << "here 4\n";
