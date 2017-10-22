@@ -112,11 +112,6 @@ public:
 			fg[2+i + cte_start]  = vars[1+i + cte_start]  - ( (f0 - vars[i + y_start]     ) + vars[i + v_start] * CppAD::sin(vars[i + epsi_start]) * dt);
 			fg[2+i + epsi_start] = vars[1+i + epsi_start] - ( (vars[i + psi_start] - side0) + vars[i + v_start] * vars[i + delta_start] / 2.67     * dt);
 			
-
-
-
-
-
 		}
 		//std::cout << "here 7\n";
 	}
