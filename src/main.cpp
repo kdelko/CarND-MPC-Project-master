@@ -145,14 +145,14 @@ int main() {
 					// velocity + throttle value * latency
 					// cross tr err + velocity * sin(epsi) * latency
 					// epsi + velocity * steering value / Lf * latency
-					
+					/*
 					s << 0.0,//v*0.1, 
 						 0.0,
 						 0.0,//v*steer_value/mpc.Lf*0.1,
 						 v + throttle_value*0.1,
 						 cte + v * sin(epsi)*0.1,
 						 epsi + v * steer_value / mpc.Lf * 0.1;
-
+						 */
 
 					/*
 					review
@@ -167,14 +167,35 @@ int main() {
 					v *= 0.44704;
 					steer_value *= -1;
 					double latency = 0.1; // in coordinate now, so use steering angle to predict x and y
-					s << px + v*cos(steer_value)*latency,
-						 py + v*sin(steer_value)*latency,
-						 steer_value + v*steer_value*latency / mpc.Lf,
-						 v + throttle_value*0.1,
-						 cte + v*sin(epsi)*latency,
-						 epsi + v*steer_value*latency / mpc.Lf;
 					*/
 					
+
+
+					double delta = -steer_value;
+					v *= 0.44704;
+					px = 0;
+					py = 0;
+					psi = delta;
+					double latency = 0.1;
+					double Lf = 2.67;
+					px = v * cos(psi)*latency;
+					py = v * sin(psi)*latency;
+					cte += v*sin(epsi)*latency;
+					epsi += v*delta*latency/Lf;
+					psi += v*delta*latency/Lf;
+					v +=throttle_value*latency;
+					s << px, py, psi, v, cte, epsi;
+					/*
+					steer_value *= -1;
+
+					s << v*cos(steer_value)*0.1,
+						 v*sin(steer_value)*0.1,
+						 steer_value + v*steer_value*0.1 / mpc.Lf,
+						 v + throttle_value*0.1,
+						 cte + v*sin(epsi)*0.1,
+						 epsi + v*steer_value*0.1 / mpc.Lf;
+					
+					*/
 					
 					//s << 0.0,0.0,0.0, v + throttle_value*0.1, cte + v * sin(epsi)*0.1, epsi + v * steer_value / mpc.Lf * 0.1;
 					//std::cout << "here 4\n";
